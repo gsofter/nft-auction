@@ -1,0 +1,29 @@
+{
+  "name": "nft-auction",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "truffle-hdwallet-provider": "^1.0.17",
+    "truffle-plugin-verify": "^0.5.11"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gsofter/nft-auction.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gsofter/nft-auction/issues"
+  },
+  "homepage": "https://github.com/gsofter/nft-auction#readme"
+}

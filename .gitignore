@@ -1,0 +1,11 @@
+# ENV fies
+.env
+
+# node_modules
+node_modules
+
+# build
+build
+
+# secret files
+.secret
