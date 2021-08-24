@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./IAuctionSea.sol";
 
-contract MultiSigWallet is Ownable {
+contract MultiSig is Ownable {
     event Deposit(address indexed sender, uint256 amount, uint256 balance);
     event ConfirmBid(address indexed owner, uint256 indexed _nftId);
     event PlaceBid(uint256 indexed _nftId, uint256 bidPrice);
