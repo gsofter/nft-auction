@@ -18,7 +18,7 @@ contract AuctionSea is Ownable {
 
     // MoldNFT contract interface
     IMoldNFT private sNft_;
-    address multiSigAddress;
+    address public multiSigAddress;
 
     // ETH balance
     uint256 public balances;

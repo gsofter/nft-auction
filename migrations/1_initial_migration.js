@@ -6,6 +6,5 @@ const AuctionSea = artifacts.require("AuctionSea");
 module.exports = async function (deployer) {
   await deployer.deploy(Migrations);
   await deployer.deploy(MultiSig);
-  await deployer.deploy(MoldNFT);
-  await deployer.deploy(AuctionSea);
+  await deployer.deploy(MoldNFT, "gMold", "MOLD");
 };
