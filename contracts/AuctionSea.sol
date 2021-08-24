@@ -18,6 +18,7 @@ contract AuctionSea is Ownable {
 
     // MoldNFT contract interface
     IMoldNFT private sNft_;
+    address multiSigAddress;
 
     // ETH balance
     uint256 public balances;
@@ -38,9 +39,11 @@ contract AuctionSea is Ownable {
 
     event BidPlaced(uint256 nftId, uint256 bidPrice, address bidder);
 
-    /**
-     * @dev Receive ETH. msg.data is empty
-     */
+    modifier onlyMultiSig() {
+        require(multiSigAddress == msg.sender, "not owner");
+        _;
+    }
+
     receive() external payable {
         balances += msg.value;
     }
@@ -52,10 +55,6 @@ contract AuctionSea is Ownable {
         balances += msg.value;
     }
 
-    /**
-     * @dev Initialize states
-     * @param _sNft MoldNFT contract address
-     */
     function initialize(address _sNft) external onlyOwner {
         require(_sNft != address(0), "Invalid address");
 
@@ -65,20 +64,14 @@ contract AuctionSea is Ownable {
         gasPrice = 2500;
     }
 
-    /**
-     * @dev Set gas price
-     * @param _gasPrice gas price
-     */
     function setGasPrice(uint256 _gasPrice) external onlyOwner {
         gasPrice = _gasPrice;
     }
 
-    /**
-     * @dev Open Auction
-     * @param _nftId NFT id
-     * @param _sBid Starting bid price
-     * @param _duration Auction opening duration time
-     */
+    function setMultiSigAddress(address _multiSig) external onlyOwner {
+        multiSigAddress = _multiSig;
+    }
+
     function openAuction(
         uint256 _nftId,
         uint256 _sBid,
@@ -110,7 +103,7 @@ contract AuctionSea is Ownable {
      * @dev Place Bid
      * @param _nftId NFT id
      */
-    function placeBid(uint256 _nftId) external payable {
+    function placeBid(uint256 _nftId) external payable onlyMultiSig {
         require(auctions[_nftId].isActive == true, "Not active auction");
         require(
             auctions[_nftId].closingTime > block.timestamp,
@@ -170,11 +163,6 @@ contract AuctionSea is Ownable {
         );
     }
 
-    /**
-     * @dev Withdraw ETH
-     * @param _target Spender address
-     * @param _amount Transfer amount
-     */
     function withdraw(address _target, uint256 _amount) external onlyOwner {
         require(_target != address(0), "Invalid address");
         require(_amount > 0 && _amount < balances, "Invalid amount");
